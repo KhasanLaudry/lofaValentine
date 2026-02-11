@@ -151,6 +151,30 @@
         transform: rotateX(-170deg);
       }
 
+      :root {
+        --yes: #ff3b7a;
+        --yesHover: #ff1f68;
+      }
+
+      /* Make BOTH buttons behave like the example */
+      .button-zone button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 16px 24px;
+        font-size: 18px;
+        font-weight: 800;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        transition:
+          transform 0.12s ease,
+          background 0.12s ease;
+      }
+
       .envelope-heart {
         position: absolute;
         top: 50%;
@@ -732,7 +756,7 @@
               <button type="button" class="yes-only-btn" id="yesBtn">
                 Yes
               </button>
-              <button id="noBtn">No</button>
+              <button type="button" id="noBtn">No</button>
             </section>
           </div>
         </div>
@@ -806,6 +830,17 @@
             currentState[emptyIndex],
           ];
         }
+      }
+
+      let yesScale = 1;
+      function growYes() {
+        yesScale = Math.min(2.2, yesScale + 0.1);
+        const yesBtn = document.getElementById("yesBtn");
+        yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
+      }
+
+      function clamp(n, min, max) {
+        return Math.max(min, Math.min(max, n));
       }
 
       function moveNo(px, py) {
